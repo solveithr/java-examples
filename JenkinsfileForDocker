@@ -8,22 +8,22 @@ pipeline {
     		DOCKERHUB_CREDENTIALS=credentials('DockerHub_Credentials')
     }
     stages {
-	stage("Move into jms-publisher-service") {
+	stage("Move into jms-publisher") {
             steps {
                 bat "cd jms-publisher"
             }
         }
-        stage("Maven package") {
+        stage("Maven package jms-publisher") {
             steps {
                 bat "mvn clean package"
             }
         }
-        stage('Docker Build') {
+        stage('Docker Build jms-publisher') {
             steps {
                 bat "docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} ."
             }
         }
-        stage('Docker Push') {
+        stage('Docker Push jms-publisher') {
             steps {
                 withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
                     bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}"
@@ -36,17 +36,17 @@ pipeline {
                 bat "cd ../jms-subscriber"
             }
         }
-        stage("Maven package") {
+        stage("Maven package jms-subscriber") {
             steps {
                 bat "mvn clean package"
             }
         }
-        stage('Docker Build') {
+        stage('Docker Build jms-subscriber') {
             steps {
                 bat "docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} ."
             }
         }
-        stage('Docker Push') {
+        stage('Docker Push jms-subscriber') {
             steps {
                 withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
                     bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}"
