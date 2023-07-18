@@ -8,13 +8,17 @@ pipeline {
     		DOCKERHUB_CREDENTIALS=credentials('DockerHub_Credentials')
     }
     stages {
+	stage("do Docker login") {
+            steps {
+                bat "echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io"
+            }
+        }
 	stage("build and push jms-publisher") {
             steps {
                 bat """
 			cd jms-publisher
 			mvn clean package
                 	docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} .
-			echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io
 			docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}
 		""".stripIndent().trim()
             }
@@ -25,7 +29,6 @@ pipeline {
 			cd jms-subscriber
 			mvn clean package
 			docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} .
-			echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io
 			docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}
 		    """.stripIndent().trim()
             }
