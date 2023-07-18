@@ -10,7 +10,7 @@ pipeline {
     stages {
 	stage("Move into jms-publisher-service") {
             steps {
-                bat "cd jms-publisher
+                bat "cd jms-publisher"
             }
         }
         stage("Maven package") {
