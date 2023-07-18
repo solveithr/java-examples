@@ -8,31 +8,26 @@ pipeline {
     		DOCKERHUB_CREDENTIALS=credentials('DockerHub_Credentials')
     }
     stages {
-	stage("do Docker login") {
-            steps {
-                bat "echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io"
-            }
-        }
 	stage("build and push jms-publisher") {
             steps {
-                bat """
-			cd jms-publisher
-			mvn clean package
-			dir
-                	docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} .
-			docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}
-		""".stripIndent().trim()
+                dir('jms-publisher') {
+                	bat "mvn clean package"
+                	bat "docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} ."
+                	withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
+                    		bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}"
+                	}
+		}
             }
         }
 	stage("build and push jms-subscriber") {
             steps {
-                bat """
-			cd jms-subscriber
-			mvn clean package
-			dir
-			docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} .
-			docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}
-		    """.stripIndent().trim()
+                dir('jms-subscriber') {
+                	bat "mvn clean package"
+                	bat "docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} ."
+                	withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
+                    		bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}"
+                	}
+		}
             }
         }
     }
