@@ -14,11 +14,9 @@ pipeline {
 			cd jms-publisher
 			mvn clean package
                 	docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} .
+			echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io
+			docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}
 		""".stripIndent().trim()
-		
-                	withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
-                    		bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}"
-                	}
             }
         }
 	stage("build and push jms-subscriber") {
@@ -27,10 +25,9 @@ pipeline {
 			cd jms-subscriber
 			mvn clean package
 			docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} .
+			echo ${DOCKERHUB_CREDENTIALS_PSW}| docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin docker.io
+			docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}
 		    """.stripIndent().trim()
-			withDockerRegistry([credentialsId: 'DockerHub_Credentials', url: '']){
-                    		bat "docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}"
-                	}
             }
         }
     }
