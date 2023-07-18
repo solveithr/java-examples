@@ -18,6 +18,7 @@ pipeline {
                 bat """
 			cd jms-publisher
 			mvn clean package
+			dir
                 	docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number} .
 			docker push $DOCKERHUB_CREDENTIALS_USR/jms-publisher-service-app:${currentBuild.number}
 		""".stripIndent().trim()
@@ -28,6 +29,7 @@ pipeline {
                 bat """
 			cd jms-subscriber
 			mvn clean package
+			dir
 			docker build -t $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number} .
 			docker push $DOCKERHUB_CREDENTIALS_USR/jms-subscriber-service-app:${currentBuild.number}
 		    """.stripIndent().trim()
