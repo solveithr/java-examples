@@ -2,7 +2,7 @@
 2. Run the below command to bring up Solace, JMS-Publisher and JMS-Subscriber.
 	docker compose up -d
 3. Import api collections (JMS_Pub-Sub_App_API_Collection.postman_collection.json) into your postman.
-4. Order of execution of apis.
+4. Order of api execution.
 	a. Publisher-start.
 	b. Subscriber-subscribe
 	c. Publisher-push (edit message in the request body section). Can repeat and check message in jms-subscriber container's log.
@@ -26,6 +26,7 @@ More info for running things wihtout docker compose.
 		
 2. Bring up jms-publisher application using any IDE.
 3. Bring up jms-subscriber application.
+4. Use order of api executions to run and see messages in subscriber logs.
 	
 
 
