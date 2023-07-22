@@ -1,0 +1,5 @@
+com\inventory\management\controller\InventoryManagementController.class
+com\inventory\management\exception\ResourceNotFoundException.class
+com\inventory\management\InventoryManagementApplication.class
+com\inventory\management\repository\InventoryRepository.class
+com\inventory\management\entity\Inventory.class
