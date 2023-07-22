@@ -1,0 +1,119 @@
+{
+	"info": {
+		"_postman_id": "7d8e0db0-0320-4684-b711-6d9bd9289365",
+		"name": "JMS based Pub-Sub API Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28696875"
+	},
+	"item": [
+		{
+			"name": "Publisher-Start",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/publisher/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"publisher",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publisher-Stop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8088/publisher/stop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"publisher",
+						"stop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Publisher-Push",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"topicName\":\"solveit-inventory\",\r\n    \"data\":\"this is my 6st message!!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8088/publisher/push",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"publisher",
+						"push"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscriber-Subscribe to /solveit-inventory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/subscribe/solveit-inventory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"subscribe",
+						"solveit-inventory"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Subscriber-Unsubscribe from /solveit-inventory",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8089/unsubscribe/solveit-inventory",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8089",
+					"path": [
+						"unsubscribe",
+						"solveit-inventory"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

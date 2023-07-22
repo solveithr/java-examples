@@ -1,0 +1,48 @@
+version: '3'
+services:
+    my-solace:
+        image: solace/solace-pubsub-standard:latest
+        environment:
+          - username_admin_globalaccesslevel=admin
+          - username_admin_password=admin
+        shm_size: 2g
+        ports:
+          - 8080:8080
+          - 55555:55555
+          - 8008:8008
+          - 1883:1883
+          - 8000:8000
+          - 5672:5672
+          - 9000:9000
+          - 2222:2222
+        container_name: my-solace
+    jms-publisher-service:
+        build: ./jms-publisher
+        image: sovleit/jms-publisher-service-img
+        environment:
+          - solace.host=tcp://host.docker.internal:55555
+          - solace.vpnName=default
+          - solace.userName=admin
+          - solace.pwd=admin
+          - solace.topic=solveit/inventory
+        ports:
+          - 8088:8088
+        depends_on:
+          my-solace:
+            condition: service_started
+        container_name: jms-publisher-service
+    jms-subscriber-service:
+        build: ./jms-subscriber
+        image: sovleit/jms-subscriber-service-img
+        environment:
+          - solace.host=tcp://host.docker.internal:55555
+          - solace.vpnName=default
+          - solace.userName=admin
+          - solace.pwd=admin
+          - solace.topic=solveit/inventory
+        ports:
+          - 8089:8089
+        depends_on:
+          jms-publisher-service:
+            condition: service_started
+        container_name: jms-subscriber-service
