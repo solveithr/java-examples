@@ -1,7 +1,6 @@
 package com.jmssubscriber.service;
 
 import com.jmssubscriber.listener.MessageSubscriberListener;
-import com.solacesystems.jcsmp.*;
 import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolJmsUtility;
 import org.slf4j.Logger;
@@ -72,10 +71,6 @@ public class SolaceSubscriberServiceImpl implements JmsSubscriberService{
             logger.info(returnMsg);
             consumersMap.put(topicName, messageConsumer);
             return returnMsg;
-        } catch (InvalidPropertiesException e) {
-            throw new RuntimeException(e);
-        } catch (JCSMPException e) {
-            throw new RuntimeException(e);
         } catch (JMSException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
