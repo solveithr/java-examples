@@ -1,8 +1,6 @@
 package com.jmspublisher.service;
 
 import com.jmspublisher.model.MyMessage;
-import com.solacesystems.jcsmp.InvalidPropertiesException;
-import com.solacesystems.jcsmp.JCSMPException;
 import com.solacesystems.jms.SolConnectionFactory;
 import com.solacesystems.jms.SolJmsUtility;
 import org.slf4j.Logger;
