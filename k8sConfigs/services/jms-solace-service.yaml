@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: solace-service
+spec:
+  selector:
+    app: jms-solace
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      nodePort: 30080
+      name: admin-port
+    - port: 55555
+      targetPort: 55555
+      protocol: TCP
+      nodePort: 30055
+      name: connection-port
+  type: NodePort

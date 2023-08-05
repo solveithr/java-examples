@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jms-subscriber-pod
+  labels:
+    app: jms-subscriber
+spec:
+  containers:
+    - name: jms-subscriber-pod
+      image: siri82/jms-subscriber-service-app:5
+      ports:
+        - containerPort: 8089
+      env:
+        - name: solace.host
+          value: "tcp://192.168.49.2:30055"
+        - name: solace.vpnName
+          value: "default"
+        - name: solace.userName
+          value: "admin"
+        - name: solace.pwd
+          value: "admin"
+        - name: solace.topic
+          value: "solveit/inventory"

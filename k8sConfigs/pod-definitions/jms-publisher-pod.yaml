@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jms-publisher-pod
+  labels:
+    app: jms-publisher
+spec:
+  containers:
+    - name: jms-publisher-pod
+      image: siri82/jms-publisher-service-app:13
+      ports:
+        - containerPort: 8088
+      env:
+        - name: solace.host
+          value: "tcp://192.168.49.2:30055"
+        - name: solace.vpnName
+          value: "default"
+        - name: solace.userName
+          value: "admin"
+        - name: solace.pwd
+          value: "admin"
+        - name: solace.topic
+          value: "solveit/inventory"
