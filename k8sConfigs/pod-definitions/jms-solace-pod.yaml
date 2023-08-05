@@ -30,3 +30,4 @@ spec:
     - name: dshm
       emptyDir:
         medium: Memory
+        sizeLimit: 2Gi
