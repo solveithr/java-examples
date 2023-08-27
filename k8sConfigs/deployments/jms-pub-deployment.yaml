@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jms-pub-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jms-publisher-activemq
+  template:
+    metadata:
+      labels:
+        app: jms-publisher-activemq
+    spec:
+      containers:
+        - name: jms-pub-activemq
+          image: sudhirreddy781/jms-pub-activemq:latest
+          ports:
+            - containerPort: 8088
+          envFrom:
+            - configMapRef:
+                name: jms-publisher-activemq-config-map
+          env:
+            - name: solace.userName
+              valueFrom:
+                secretKeyRef:
+                  name: jms-app-secrets
+                  key: username
+            - name: solace.pwd
+              valueFrom:
+                secretKeyRef:
+                  name: jms-app-secrets
+                  key: password

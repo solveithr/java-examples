@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jms-publisher-with-config-map-service
+spec:
+  selector:
+    app: jms-publisher-from-config-map
+  ports:
+    - port: 8080
+      targetPort: 8088
+      protocol: TCP
+      nodePort: 30071
+      name: publisher-port
+  type: NodePort

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jms-publisher-activemq-config-map
+data:
+  solace.host: "tcp://192.168.49.2:30091"
+  solace.vpnName: "default"
+  solace.topic: "Topic1"

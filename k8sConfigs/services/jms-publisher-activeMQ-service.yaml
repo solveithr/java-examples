@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jms-publisher-activemq-service
+spec:
+  selector:
+    app: jms-publisher-activemq
+  ports:
+    - port: 8080
+      targetPort: 8088
+      protocol: TCP
+      nodePort: 30171
+      name: publisher-port
+  type: NodePort

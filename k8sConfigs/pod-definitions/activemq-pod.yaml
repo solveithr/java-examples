@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: activemq
+  labels:
+    app: my-activemq-pod
+spec:
+  containers:
+    - name: my-active-mq
+      image: webcenter/activemq:latest
+      resources:
+        requests:
+          memory: 500Mi
+          cpu: 200m
+        limits:
+          memory: 1000Mi
+          cpu: 400m
+      ports:
+        - containerPort: 8161
+        - containerPort: 61616
+        - containerPort: 5672
+        - containerPort: 61613
+        - containerPort: 1883

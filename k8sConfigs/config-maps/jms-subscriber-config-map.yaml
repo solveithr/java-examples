@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jms-subscriber-configmap1
+data:
+  solace.host: "tcp://192.168.49.2:30055"
+  solace.vpnName: "default"
+  solace.userName: "admin"
+  solace.pwd: "admin"
+  solace.topic: "solveit/inventory"

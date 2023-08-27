@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jms-subscriber-pod-with-configmap
+  labels:
+    app: jms-subscriber-with-configmap
+spec:
+  containers:
+    - name: jms-subscriber-pod
+      image: siri82/jms-subscriber-service-app:5
+      ports:
+        - containerPort: 8089
+      envFrom:
+        - configMapRef:
+            name: jms-subscriber-configmap1

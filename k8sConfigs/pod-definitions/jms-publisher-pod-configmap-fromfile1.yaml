@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: jms-publisher-pod-from-config-map
+  labels:
+    app: jms-publisher-from-config-map
+spec:
+  containers:
+    - name: jms-publisher-pod
+      image: siri82/jms-publisher-service-app:13
+      ports:
+        - containerPort: 8088
+      envFrom:
+        - configMapRef:
+            name: jms-publisher-configmap1
